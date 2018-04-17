@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import './App.css';
 
-import Header from './components/header.js';
+import Head from './components/header.js';
 import Login from './components/login.js';
 import Register from './components/register.js';
 import Home from './components/home.js';
@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Header/>
+          <Head/>
           <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
           <Route exact path="/" component={Home}/>
