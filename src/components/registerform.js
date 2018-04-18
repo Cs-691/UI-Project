@@ -1,6 +1,24 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import validateInput from './validation.js';
+import {Form, Grid, Select, Input, Checkbox, Button, Message} from 'semantic-ui-react';
+
+const gender = [
+  { key: 'm', text: 'Male', value: 'male' },
+  { key: 'f', text: 'Female', value: 'female' },
+]
+
+const country = [
+  { key: 'usa', text: 'United States of America', value: 'usa'},
+  { key: 'can', text: 'Cananda', value: 'canada'},
+  { key: 'in', text: 'India', value: 'india'},
+  { key: 'ch', text: 'China', value: 'china'},
+  { key: 'jp', text: 'Japan', value: 'japan'},
+  { key: 'ru', text: 'Russia', value: 'russia'},
+  { key: 'uk', text: 'United Kingdom', value: 'uk'},
+  { key: 'su', text: 'Sudhan', value: 'sudan'},
+  { key: 'ey', text: 'Egypt', value: 'egypt'},
+]
 
 class RegisterForm extends Component{
   constructor(props){
@@ -13,7 +31,7 @@ class RegisterForm extends Component{
       confpassword: '',
       age: '',
       gender: '',
-      ethnicity: '',
+      country: '',
       disabilities: '',
       conditions: '',
       errors: {}
@@ -38,6 +56,7 @@ class RegisterForm extends Component{
 
   onSubmit(e){
     this.setState({errors: {}});
+    console.log(this.state);
     e.preventDefault();
     if (this.isValid()) {
       axios.post('http://localhost:3000/home', {userdata : this.state}).then(
@@ -50,137 +69,119 @@ class RegisterForm extends Component{
   render(){
     const {errors} = this.state;
     return(
-      <form onSubmit = {this.onSubmit} >
-        <h2> Register </h2>
 
-        <div>
-          <label> First Name </label>
-            <input
-              type = "text"
-              value = {this.state.firstname}
-              onChange = {this.onChange}
-              name = "firstname"
-              className = ""
-            />
-            {errors.firstname && <span> {errors.firstname}</span>}
-        </div>
+      <Grid
+        textAlign = 'center'
+        verticalAlign = 'middle' >
+        <Grid.Column style={{maxWidth: 350}}>
+      <Form onSubmit = {this.onSubmit}>
+        <h2> CREATE AN ACCOUNT! </h2>
 
-        <div>
-          <label> Last Name </label>
-            <input
-              type = "text"
-              value = {this.state.lastname}
-              onChange = {this.onChange}
-              name = "lastname"
-              className = ""
-            />
-            {errors.lastname && <span> {errors.lastname}</span>}
-        </div>
+        <Form.Input
+          control = {Input}
+          placeholder='First name'
+          value = {this.state.firstname}
+          onChange = {this.onChange}
+          name = "firstname"
+        />
+        {errors.firstname && <Message
+          warning
+          header='Could you check something!'
+          list={[
+            <span> {errors.firstname}</span>,
+          ]}
+          />}
 
-        <div>
-          <label> Email </label>
-            <input
-              type = "email"
-              value = {this.state.email}
-              onChange = {this.onChange}
-              name = "email"
-              className = ""
-            />
-            {errors.email && <span> {errors.email}</span>}
-        </div>
+        <Form.Input
+          control = {Input}
+          placeholder='Last name'
+          value = {this.state.lastname}
+          onChange = {this.onChange}
+          name = "lastname"
+        />
+        {errors.lastname && <span> {errors.lastname}</span>}
 
-        <div>
-          <label> Password </label>
-            <input
-              type = "password"
-              value = {this.state.password}
-              onChange = {this.onChange}
-              name = "password"
-              className = ""
-            />
-            {errors.password && <span> {errors.password}</span>}
-        </div>
 
-        <div>
-          <label> Confirm Password </label>
-            <input
-              type = "password"
-              value = {this.state.confpassword}
-              onChange = {this.onChange}
-              name = "confpassword"
-              className = ""
-            />
-            {errors.confpassword && <span> {errors.confpassword}</span>}
-        </div>
+        <Form.Input
+          type = "email"
+          placeholder='joe@abc.com'
+          value = {this.state.email}
+          onChange = {this.onChange}
+          name = "email"
+        />
+        {errors.email && <span> {errors.email}</span>}
 
-        <div>
-          <label> age </label>
-            <input
-              type = "number"
-              min ="1"
-              value = {this.state.age}
-              onChange = {this.onChange}
-              name = "age"
-              className = ""
-            />
-            {errors.age && <span> {errors.age}</span>}
-        </div>
+        <Form.Input
+          type="password"
+          placeholder='Password'
+          value = {this.state.password}
+          onChange = {this.onChange}
+          name = "password"
+        />
+        {errors.password && <span> {errors.password}</span>}
 
-        <div>
-          <label> Gender </label>
-            <select
-              type = "text"
-              value = {this.state.gender}
-              onChange = {this.onChange}
-              name = "gender"
-              className = ""
-            >
-            <option value ="" disabled> Choose your gender </option>
-            <option name = "male"> Male </option>
-            <option name = "female"> Female </option>
-            </select>
-            {errors.gender && <span> {errors.gender}</span>}
-        </div>
+        <Form.Input
+          type = "Password"
+          placeholder='Confirm Password'
+          value = {this.state.confpassword}
+          onChange = {this.onChange}
+          name = "confpassword"
+        />
+        {errors.confpassword && <span> {errors.confpassword}</span>}
 
-        <div>
-          <label> Ethnicity </label>
-            <input
-              type = "text"
-              value = {this.state.ethnicity}
-              onChange = {this.onChange}
-              name = "ethnicity"
-              className = ""
-            />
-            {errors.ethnicity && <span> {errors.ethnicity}</span>}
-        </div>
+        <Form.Input
+          type = "number"
+          min = "1"
+          max = "110"
+          placeholder='Age'
+          value = {this.state.age}
+          onChange = {this.onChange}
+          name = "age"
+        />
+        {errors.age && <span> {errors.age}</span>}
 
-        <div>
-          <label> Disabilities </label>
-            <input
-              type = "text"
-              value = {this.state.disabilities}
-              onChange = {this.onChange}
-              name = "disabilities"
-              className = ""
-            />
-        </div>
+        <Form.Field
+          control={Select}
+          options = {gender}
+          placeholder='Gender'
+          value = {this.state.gender}
+          onChange = {this.onChange}
+          name = "gender"/>
+        {errors.gender && <span> {errors.gender}</span>}
 
-        <div>
-          <label> Previous Medical Conditions </label>
-            <input
-              type = "text"
-              value = {this.state.conditions}
-              onChange = {this.onChange}
-              name = "conditions"
-              className = ""
-            />
-        </div>
+        <Form.Field
+          control= {Select}
+          options = {country}
+          value = {this.state.country}
+          onChange = {this.onChange}
+          name = "country"
+          placeholder = "Country" />
+        {errors.country && <span> {errors.country}</span>}
 
-        <div>
-          <button> SIGN UP </button>
-        </div>
+        <Form.Input
+          placeholder='Any Disabilities you want to share?'
+          value = {this.state.disabilities}
+          onChange = {this.onChange}
+          name = "disabilities"
+        />
 
-      </form>
+        <Form.Input
+          placeholder='Any previous medical conditions?'
+          value = {this.state.conditions}
+          onChange = {this.onChange}
+          name = "conditions"
+          className = ""
+        />
+        <Form.Field
+          control={Checkbox}
+          label='I agree to the Terms and Conditions' />
+
+        <Form.Field
+        control={Button}>Submit</Form.Field>
+
+      </Form>
+      </Grid.Column>
+      </Grid>
     );
   }
 }

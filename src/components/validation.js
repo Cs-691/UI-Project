@@ -32,8 +32,8 @@ export default function validateInput(data) {
   if (Validator.isEmpty(data.gender)) {
     errors.gender = 'This field is required';
   }
-  if (Validator.isEmpty(data.ethnicity)) {
-    errors.ethnicity = 'This field is required';
+  if (Validator.isEmpty(data.country)) {
+    errors.country = 'This field is required';
   }
 
   return {
