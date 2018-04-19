@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Form, Grid, Button} from 'semantic-ui-react';
 
 class loginform extends Component{
 
@@ -25,35 +26,36 @@ class loginform extends Component{
 
   render(){
     return(
-      <div>
-        <h2> Login </h2>
-        <form onSubmit = {this.onSubmit}>
-          <div>
-            <label> Email </label>
-              <input
-                type = "email"
-                value = {this.state.email}
-                onChange = {this.onChange}
-                name = "email"
-                className = ""
-              />
-          </div>
 
-          <div>
-            <label> Password </label>
-              <input
-                type = "password"
-                value = {this.state.password}
-                onChange = {this.onChange}
-                name = "password"
-                className = ""
-              />
-          </div>
-          <div>
-          <button> LOGIN </button>
-          </div>
-        </form>
-      </div>
+      <Grid
+        textAlign="center"
+        verticalAlign="middle">
+        <Grid.Column style = {{maxWidth: 350}}>
+        <Form onSubmit = {this.onSubmit}>
+        <h2> Login </h2>
+
+        <Form.Input
+          type = "email"
+          value = {this.state.email}
+          onChange = {this.onChange}
+          name = "email"
+          placeholder = "joe@abc.com"
+        />
+
+        <Form.Input
+          type = "password"
+          value = {this.state.password}
+          onChange = {this.onChange}
+          name = "password"
+          placeholder = "Password"
+        />
+
+        <Form.Field
+        control={Button}>Submit
+        </Form.Field>
+        </Form>
+        </Grid.Column>
+      </Grid>
     );
   }
 }

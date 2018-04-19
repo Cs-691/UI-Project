@@ -24,7 +24,8 @@ export default function validateInput(data) {
     errors.confpassword = 'This field is required';
   }
   if (!Validator.equals(data.password, data.confpassword)) {
-    errors.confpassword = 'Passwords must match';
+    errors.confpassword= 'Passwords does not match';
+    errors.password = 'Passwords does not match';
   }
   if (Validator.isEmpty(data.age)) {
     errors.age = 'This field is required';

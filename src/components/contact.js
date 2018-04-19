@@ -1,37 +1,64 @@
-import React, { Component } from 'react'
-import { Button, Checkbox, Form, Input, Radio, Select, TextArea } from 'semantic-ui-react'
+import React from 'react';
+import { Button, Input, Checkbox } from 'semantic-ui-react';
 
-const options = [
-  { key: 'm', text: 'Male', value: 'male' },
-  { key: 'f', text: 'Female', value: 'female' },
-]
+class Register extends React.Component {
+  state = {
+    username: '',
+    email: '',
+    password: '',
+    isAdmin: false,
+  }
 
-class FormExampleFieldControl extends Component {
-  state = {}
-  handleChange = (e, { value }) => this.setState({ value })
+  onChange = (e) => {
+    if (e.target.name === 'isAdmin') {
+      this.setState({
+        [e.target.name]: e.target.checked,
+      });
+    } else {
+      this.setState({
+        [e.target.name]: e.target.value,
+      });
+    }
+  }
+
+  onSubmit = async () => {
+    const response = await this.props.mutate({
+      variables: this.state,
+    });
+    console.log(response);
+  }
 
   render() {
-    console.log(value);
-    const { value } = this.state
     return (
-      <Form >
-        <Form.Group widths='equal'>
-          <Form.Field control={Input} label='First name' placeholder='First name' />
-          <Form.Field control={Input} label='Last name' placeholder='Last name' />
-          <Form.Field control={Select} label='Gender' options={options} placeholder='Gender' />
-        </Form.Group>
-        <Form.Group inline>
-          <label>Quantity</label>
-          <Form.Field control={Radio} label='One' value='1' checked={value === '1'} onChange={this.handleChange} />
-          <Form.Field control={Radio} label='Two' value='2' checked={value === '2'} onChange={this.handleChange} />
-          <Form.Field control={Radio} label='Three' value='3' checked={value === '3'} onChange={this.handleChange} />
-        </Form.Group>
-        <Form.Field control={TextArea} label='About' placeholder='Tell us more about you...' />
-        <Form.Field id='form-button-control-public' control={Button} content='Confirm' label='Label with htmlFor' />
-
-      </Form>
-    )
+      <div>
+        <Input
+          name='username'
+          placeholder='Username'
+          onChange={e => this.onChange(e)}
+          value={this.state.username} />
+        <Input
+          name='email'
+          placeholder='Email'
+          onChange={e => this.onChange(e)}
+          value={this.state.email} />
+        <Input
+          name='password'
+          placeholder='Password'
+          type='password'
+          onChange={e => this.onChange(e)}
+          value={this.state.password} />
+        <Checkbox
+          name='isAdmin'
+          checked={this.state.isAdmin}
+          onChange={e => this.onChange(e)}
+        >
+          Admin?
+        </Checkbox>
+        <br />
+        <Button onClick={() => this.onSubmit()} type="primary">Primary</Button>
+      </div>
+    );
   }
 }
 
-export default FormExampleFieldControl
+export default Register;

@@ -7,7 +7,7 @@ class Login extends Component{
     return(
       <div>
       <LoginForm/>
-      </div>
+      </div>  
     );
   }
 }

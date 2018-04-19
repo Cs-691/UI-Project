@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import validateInput from './validation.js';
-import {Form, Grid, Select, Input, Checkbox, Button, Message} from 'semantic-ui-react';
+import {Form, Grid, Select, Input, Checkbox, Button, Dropdown} from 'semantic-ui-react';
 
 const gender = [
   { key: 'm', text: 'Male', value: 'male' },
@@ -34,14 +34,23 @@ class RegisterForm extends Component{
       country: '',
       disabilities: '',
       conditions: '',
-      errors: {}
+      errors: {},
+      terms: true,
     }
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   onChange(e){
-    this.setState({ [e.target.name] : e.target.value});
+    if (e.target.name === 'terms') {
+      this.setState({
+        [e.target.name]: e.target.checked,
+      });
+    } else{
+    this.setState({
+      [e.target.name] : e.target.value
+      });
+    }
   }
 
   isValid() {
@@ -63,8 +72,9 @@ class RegisterForm extends Component{
         () => {},
         ({data}) =>this.setState({errors: data})
       );
+    }
   }
-}
+
 
   render(){
     const {errors} = this.state;
@@ -83,14 +93,8 @@ class RegisterForm extends Component{
           value = {this.state.firstname}
           onChange = {this.onChange}
           name = "firstname"
+          error = {errors.firstname}
         />
-        {errors.firstname && <Message
-          warning
-          header='Could you check something!'
-          list={[
-            <span> {errors.firstname}</span>,
-          ]}
-          />}
 
         <Form.Input
           control = {Input}
@@ -98,9 +102,8 @@ class RegisterForm extends Component{
           value = {this.state.lastname}
           onChange = {this.onChange}
           name = "lastname"
+          error = {errors.lastname}
         />
-        {errors.lastname && <span> {errors.lastname}</span>}
-
 
         <Form.Input
           type = "email"
@@ -108,8 +111,8 @@ class RegisterForm extends Component{
           value = {this.state.email}
           onChange = {this.onChange}
           name = "email"
+          error = {errors.email}
         />
-        {errors.email && <span> {errors.email}</span>}
 
         <Form.Input
           type="password"
@@ -117,8 +120,8 @@ class RegisterForm extends Component{
           value = {this.state.password}
           onChange = {this.onChange}
           name = "password"
+          error = {errors.password}
         />
-        {errors.password && <span> {errors.password}</span>}
 
         <Form.Input
           type = "Password"
@@ -126,8 +129,8 @@ class RegisterForm extends Component{
           value = {this.state.confpassword}
           onChange = {this.onChange}
           name = "confpassword"
+          error = {errors.confpassword}
         />
-        {errors.confpassword && <span> {errors.confpassword}</span>}
 
         <Form.Input
           type = "number"
@@ -137,8 +140,8 @@ class RegisterForm extends Component{
           value = {this.state.age}
           onChange = {this.onChange}
           name = "age"
+          error = {errors.age}
         />
-        {errors.age && <span> {errors.age}</span>}
 
         <Form.Field
           control={Select}
@@ -146,8 +149,9 @@ class RegisterForm extends Component{
           placeholder='Gender'
           value = {this.state.gender}
           onChange = {this.onChange}
-          name = "gender"/>
-        {errors.gender && <span> {errors.gender}</span>}
+          name = "gender"
+          error = {errors.gender}
+          />
 
         <Form.Field
           control= {Select}
@@ -155,8 +159,9 @@ class RegisterForm extends Component{
           value = {this.state.country}
           onChange = {this.onChange}
           name = "country"
-          placeholder = "Country" />
-        {errors.country && <span> {errors.country}</span>}
+          placeholder = "Country"
+          error = {errors.country}
+          />
 
         <Form.Input
           placeholder='Any Disabilities you want to share?'
@@ -172,12 +177,16 @@ class RegisterForm extends Component{
           name = "conditions"
           className = ""
         />
-        <Form.Field
-          control={Checkbox}
-          label='I agree to the Terms and Conditions' />
+        <Checkbox
+          name = "terms"
+          checked = {this.state.terms}
+          onChange = {e => this.onChange(e)}
+          label='I agree to the Terms and Conditions'
+          />
 
         <Form.Field
-        control={Button}>Submit</Form.Field>
+        control={Button}>Submit
+        </Form.Field>
 
       </Form>
       </Grid.Column>
