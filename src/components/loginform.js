@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Form, Grid, Button} from 'semantic-ui-react';
+import {Form, Grid, Button, Header, Image, Segment, Message} from 'semantic-ui-react';
 
 class loginform extends Component{
 
@@ -26,36 +26,51 @@ class loginform extends Component{
 
   render(){
     return(
+      <div className='login-form' >
+        <Grid
+          textAlign='center'
+          style={{ height: '100%' }}
+          verticalAlign='middle'
+        >
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header
+              as='h2'
+              color='teal'
+              textAlign='center'>
+              Log-in to your account
+            </Header>
+            <Form size='large' onSubmit = {this.onSubmit}>
+              <Segment stacked>
+                <Form.Input
+                  fluid
+                  icon='user'
+                  iconPosition='left'
+                  type = "email"
+                  value = {this.state.email}
+                  onChange = {this.onChange}
+                  name = "email"
+                  placeholder = "joe@abc.com"
+                />
+                <Form.Input
+                  fluid
+                  icon='lock'
+                  iconPosition='left'
+                  type = "password"
+                  value = {this.state.password}
+                  onChange = {this.onChange}
+                  name = "password"
+                  placeholder = "Password"
+                />
 
-      <Grid
-        textAlign="center"
-        verticalAlign="middle">
-        <Grid.Column style = {{maxWidth: 350}}>
-        <Form onSubmit = {this.onSubmit}>
-        <h2> Login </h2>
-
-        <Form.Input
-          type = "email"
-          value = {this.state.email}
-          onChange = {this.onChange}
-          name = "email"
-          placeholder = "joe@abc.com"
-        />
-
-        <Form.Input
-          type = "password"
-          value = {this.state.password}
-          onChange = {this.onChange}
-          name = "password"
-          placeholder = "Password"
-        />
-
-        <Form.Field
-        control={Button}>Submit
-        </Form.Field>
-        </Form>
-        </Grid.Column>
-      </Grid>
+                <Button color='teal' fluid size='large'>Login</Button>
+              </Segment>
+            </Form>
+            <Message>
+              Do not have a Account? <a href='/register'>Sign Up</a>
+            </Message>
+          </Grid.Column>
+        </Grid>
+    </div>
     );
   }
 }

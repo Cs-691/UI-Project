@@ -18,7 +18,7 @@ class Head extends Component{
   render(){
     const { activeItem } = this.state;
     return(
-      <Menu stackable>
+      <Menu pointing secondary stackable>
         <Menu.Item
           active={activeItem === 'home'}
           name='home'
