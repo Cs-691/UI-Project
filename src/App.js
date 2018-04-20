@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import './App.css';
 
+import './Assets/css/style.min.css';
+
+
 import Head from './components/header.js';
 import Login from './components/login.js';
 import Register from './components/register.js';

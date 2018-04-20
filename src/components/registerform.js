@@ -3,7 +3,7 @@ import axios from 'axios';
 import validateInput from './validation.js';
 import {Form, Grid, Select, Input, Checkbox, Button, Dropdown} from 'semantic-ui-react';
 
-const gender = [
+const sex = [
   { key: 'm', text: 'Male', value: 'male' },
   { key: 'f', text: 'Female', value: 'female' },
 ]
@@ -143,15 +143,13 @@ class RegisterForm extends Component{
           error = {errors.age}
         />
 
-        <Form.Field
-          control={Select}
-          options = {gender}
+        <Dropdown
+          fluid selection options = {sex}
           placeholder='Gender'
-          value = {this.state.gender}
-          onChange = {this.onChange}
           name = "gender"
-          error = {errors.gender}
-          />
+          value = {this.state.selectValue}
+          onChange={this.onChange}
+        />
 
         <Form.Field
           control= {Select}

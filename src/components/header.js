@@ -1,50 +1,79 @@
 import React, { Component} from 'react';
 import {Link} from 'react-router-dom';
-import { Menu } from 'semantic-ui-react'
+import { Menu, Grid, Responsive, Button } from 'semantic-ui-react'
 
-export default class Head extends Component{
-  state = { activeItem: 'home' }
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name }
- )
+class Head extends Component{
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  componentWillMount(){
+    localStorage.getItem('pstate') && this.setState({
+      activeItem: JSON.parse(localStorage.getItem('pstate'))
+    })
+  }
+
+  componentWillUpdate(nextProps, nextState){
+    localStorage.setItem('pstate', JSON.stringify(nextState.activeItem));
+  }
+
   render(){
     const { activeItem } = this.state;
     return(
-      <div>
-       <Menu tabular>
-          <Menu.Item
-            name='home'
-            active={this.state.activeItem === 'home'}
-            onClick={this.handleItemClick}>
-              <Link to="/">HOME</Link>
-          </Menu.Item>
-          <Menu.Item
-            name='about'
-            active={this.state.activeItem === 'about'}
-            onClick={this.handleItemClick}>
-              <Link to="/about">ABOUT</Link>
-          </Menu.Item>
-          <Menu.Item
-            name='contact'
-            active={activeItem === 'contact'}
-            onClick={this.handleItemClick}>
-              <Link to="/contact">CONTACT</Link>
-          </Menu.Item>
-          <Menu.Item
-            name='login'
-            active={activeItem === 'login'}
-            onClick={this.handleItemClick}>
-              <Link to="/login">LOGIN</Link>
-          </Menu.Item>
-          <Menu.Item
-            name='register'
-            active={activeItem === 'register'}
-            onClick={this.handleItemClick}s>
-              <Link to="/register">SIGNUP</Link>
-          </Menu.Item>
+      <Menu stackable>
+        <Menu.Item
+          active={activeItem === 'home'}
+          name='home'
+          onClick={this.handleItemClick}>
+            <Link to="/" className = "headeritem">HOME</Link>
+        </Menu.Item>
+        <Menu.Item
+          active={activeItem === 'about'}
+          name='about'
+          onClick={this.handleItemClick}>
+            <Link to="/about" className = "headeritem">ABOUT</Link>
+        </Menu.Item>
+        <Menu.Item
+          active={activeItem === 'contact'}
+          name='contact'
+          onClick={this.handleItemClick}>
+            <Link to="/contact" className = "headeritem">CONTACT</Link>
+        </Menu.Item>
 
-        </Menu>
-      </div>
-
+         <Menu.Menu position='right'>
+             <Responsive
+               {...Responsive.onlyMobile}
+               as={Menu.Item}
+               onClick={this.handleItemClick}
+               active={activeItem === 'login'}
+               name = "login">
+               <Link to="/login" className = "headeritem">LOGIN</Link>
+             </Responsive>
+             <Responsive
+               as={Menu.Item}
+               onClick={this.handleItemClick}
+               active={activeItem === 'login'}
+               name = "login"
+               minWidth={Responsive.onlyTablet.minWidth}>
+                <Link to="/login" className = "headeritem">LOGIN</Link>
+             </Responsive>
+             <Responsive
+               {...Responsive.onlyMobile}
+               as={Menu.Item}
+               onClick={this.handleItemClick}
+               active={activeItem === 'signup'}
+               name = "signup">
+                <Link to="/register" className = "headeritem">SIGNUP</Link>
+             </Responsive>
+             <Responsive
+             as={Menu.Item}
+             onClick={this.handleItemClick}
+             active={activeItem === 'signup'}
+             name = "signup"
+             minWidth={Responsive.onlyTablet.minWidth}>
+              <Link to="/register" className = "headeritem">SIGNUP</Link>
+             </Responsive>
+         </Menu.Menu>
+     </Menu>
     );
   }
 }
+export default Head;
