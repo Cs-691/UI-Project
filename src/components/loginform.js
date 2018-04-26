@@ -43,7 +43,7 @@ class loginform extends Component{
               <Segment stacked>
                 <Form.Input
                   fluid
-                  icon='user'
+                  icon='mail'
                   iconPosition='left'
                   type = "email"
                   value = {this.state.email}

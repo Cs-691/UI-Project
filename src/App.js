@@ -3,9 +3,8 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import './App.css';
 
 import './Assets/css/style.min.css';
-
-
-import Head from './components/header.js';
+import Head from './components/header2.js'
+import Popup from './components/popup.js'
 import Login from './components/login.js';
 import Register from './components/register.js';
 import Home from './components/home.js';
@@ -17,7 +16,9 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Head/>
+        <Head/>
+
+          <Route exact path="/popup" component={Popup}/>
           <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
           <Route exact path="/" component={Home}/>
