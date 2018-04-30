@@ -3,22 +3,9 @@ import axios from 'axios';
 import validateInput from './validation.js';
 import {Form, Grid, Select, Input, Checkbox, Button, Dropdown, Segment, Header} from 'semantic-ui-react';
 
-const sex = [
-  { key: 'm', text: 'Male', value: 'male' },
-  { key: 'f', text: 'Female', value: 'female' },
-]
 
-const country = [
-  { key: 'usa', text: 'United States of America', value: 'usa'},
-  { key: 'can', text: 'Cananda', value: 'canada'},
-  { key: 'in', text: 'India', value: 'india'},
-  { key: 'ch', text: 'China', value: 'china'},
-  { key: 'jp', text: 'Japan', value: 'japan'},
-  { key: 'ru', text: 'Russia', value: 'russia'},
-  { key: 'uk', text: 'United Kingdom', value: 'uk'},
-  { key: 'su', text: 'Sudhan', value: 'sudan'},
-  { key: 'ey', text: 'Egypt', value: 'egypt'},
-]
+
+
 
 class RegisterForm extends Component{
   constructor(props){
@@ -30,16 +17,32 @@ class RegisterForm extends Component{
       password: '',
       confpassword: '',
       age: '',
-      gender: '',
-      country: '',
       disabilities: '',
       conditions: '',
       errors: {},
-      terms: true,
+      gender:'male',
+      country:'USA',
+      terms: true
     }
+    this.changeCountry = this.changeCountry.bind(this);
+    this.change = this.change.bind(this);
+    this.toggle = this.toggle.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+
+changeCountry(e){
+  this.setState({country: e.target.value});
+
+}
+toggle(e){
+  this.setState({terms: !this.state.terms});
+}
+     change(event){
+
+         this.setState({gender: event.target.value});
+     }
 
   onChange(e){
     if (e.target.name === 'terms') {
@@ -77,6 +80,18 @@ class RegisterForm extends Component{
 
 
   render(){
+    let country = [
+      { name: 'United States of America', value: 'usa'},
+      {name: 'Cananda', value: 'canada'},
+
+    ]
+    const createItem = (item, key) =>
+      <option
+        key={key}
+        value={item.value}
+      >
+        {item.name}
+      </option>;
     const {errors} = this.state;
     return(
 
@@ -159,24 +174,25 @@ class RegisterForm extends Component{
             error = {errors.age}
           />
 
-          <Form.Input
-            control = {Select}
-            fluid selection options = {sex}
-            placeholder='Gender'
-            name = "gender"
-            value = {this.state.value}
-            onChange={this.onChange}
-          />
+          <div>
+               <select id="lang" onChange={this.change} value={this.state.value}>
 
-          <Form.Field
-            control= {Select}
-            options = {country}
-            value = {this.state.country}
-            onChange = {this.onChange}
-            name = "country"
-            placeholder = "Country"
-            error = {errors.country}
-            />
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+               </select>
+               <p></p>
+               <p>{this.state.value}</p>
+           </div>
+
+           <div>
+                <select id="lang1" onChange={this.changeCountry} value={this.state.value}>
+                  {country.map(createItem)}
+
+                </select>
+                <p></p>
+                <p>{this.state.value}</p>
+            </div>
+
 
           <Form.Input
             placeholder='Any Disabilities you want to share?'
@@ -195,7 +211,7 @@ class RegisterForm extends Component{
           <Checkbox
             name = "terms"
             checked = {this.state.terms}
-            onChange = {e => this.onChange(e)}
+            onClick = {this.toggle}
             label='I agree to the Terms and Conditions'
             /><br/><br/>
 

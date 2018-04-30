@@ -6,56 +6,56 @@ import { Button, Container, Divider, Grid, Header, Icon, Image, List, Menu, Resp
 from 'semantic-ui-react';
 
 const HomepageHeading = ({ mobile }) => (
+<Segment inverted style={{minHeight: 650, padding: '1em 0em'}} vertical textAlign='center'>
   <Container text>
     <Header
       as='h1'
       content='ILLNESS DIAGNOSIS SYSTEM'
       inverted
       style={{
-        fontSize: mobile ? '2em' : '4em',
+        fontSize: mobile ? '2em' : '3.5em',
         fontWeight: 'normal',
         marginBottom: 0,
-        marginTop: mobile ? '1.5em' : '3em',
+        marginTop: mobile ? '1.5em' : '2.8em',
       }}
     />
     <Header
       as='h2'
-      content='Precaution is better than cure!'
+      content='A CLEVER Person Solves a Problem. A WISE Person Avoids It!'
       inverted
       style={{
-        fontSize: mobile ? '1.5em' : '1.7em',
+        fontSize: mobile ? '1.2em' : '1.5em',
         fontWeight: 'normal',
-        marginTop: mobile ? '0.5em' : '1.5em',
+        marginTop: mobile ? '0.5em' : '1.2em',
       }}
     />
-    <Button primary size='huge'>
+    <Button color='teal'  size='huge' >
       Get Started
       <Icon name='right arrow' />
     </Button>
   </Container>
+  </Segment>
+
 )
 
 HomepageHeading.propTypes = {
   mobile: PropTypes.bool,
 }
 
-/* Heads up!
- * Neither Semantic UI nor Semantic UI React offer a responsive navbar, however, it can be implemented easily.
- * It can be more complicated, but you can create really flexible markup.
- */
-
 const HomepageLayout = () => (
+
   <div>
+  <HomepageHeading/>
     <Segment style={{ padding: '8em 0em' }} vertical>
       <Grid container stackable verticalAlign='middle'>
         <Grid.Row>
           <Grid.Column width={8}>
-            <Header as='h3' style={{ fontSize: '2em' }}>We Help Companies and Companions</Header>
+            <Header as='h3' style={{ fontSize: '2em' }}>We help you to understand your symptoms</Header>
             <p style={{ fontSize: '1.33em' }}>
               We can give your company superpowers to do things that they never thought possible. Let us delight
               your customers and empower your needs... through pure data analytics.
             </p>
-            <Header as='h3' style={{ fontSize: '2em' }}>We Make Bananas That Can Dance</Header>
+            <Header as='h3' style={{ fontSize: '2em' }}>We can provide you precautions based on your symptoms</Header>
             <p style={{ fontSize: '1.33em' }}>
               Yes thats right, you thought it was the stuff of dreams, but even bananas can be bioengineered.
             </p>
@@ -64,8 +64,8 @@ const HomepageLayout = () => (
             <Image
               bordered
               rounded
-              size='large'
-              src='/assets/images/wireframe/white-image.png'
+              size='medium'
+              src='./Assets/images/demo.jpg'
             />
           </Grid.Column>
         </Grid.Row>
