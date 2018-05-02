@@ -30,11 +30,11 @@ export default class userprofile extends Component{
       <div>
           <Grid container stackable verticalAlign='middle' style={{ height: '100%' }}>
               <Grid.Column width={5} style={{marginTop: '2em', height:'550px'}}>
-              <Segment raised color='teal' textAlign='center' style={{ height: '100%' }}>
+                <Segment raised color='teal' textAlign='center' style={{ height: '100%' }}>
                 <Image
                   bordered
                   centered
-                  verticalAlign='middle'
+                  verticalAlign=  'middle'
                   size='medium'
                   style={{
                     marginLeft: '0.1em',
@@ -135,7 +135,6 @@ export default class userprofile extends Component{
               </Grid.Column>
           </Grid>
     </div>
-
     )
   }
 }

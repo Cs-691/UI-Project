@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import './App.css';
+import './Assets/css/style.min.css';
 
 import './Assets/css/style.min.css';
 import Head from './components/header.js'
@@ -11,6 +11,7 @@ import Home from './components/home.js';
 import About from './components/about.js';
 import Contact from './components/contact.js';
 import UserProfile from './components/userprofile2.js';
+import Diagnosis from './components/diagnosis.js';
 
 class App extends Component {
   render() {
@@ -26,6 +27,7 @@ class App extends Component {
           <Route exact path="/about" component={About}/>
           <Route exact path="/contact" component={Contact}/>
           <Route exact path="/userprofile" component={UserProfile}/>
+          <Route exact path="/diagnosis" component={Diagnosis}/>
         </div>
       </Router>
     );

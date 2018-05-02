@@ -1,0 +1,13 @@
+.conversation-container > .header {
+  background-color: red;
+}
+
+.message > .response {
+  background-color: black;
+  color: white;
+}
+
+.showCloseButton{
+  height: 10px;
+  width: 10px;
+}

@@ -22,7 +22,6 @@ let currentState=localStorage.getItem('pstate');
   }
 
   componentWillUpdate(nextProps, nextState){
-
     localStorage.setItem('pstate', nextState.activeItem);
   }
 
