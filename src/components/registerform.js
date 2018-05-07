@@ -2,10 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import validateInput from './validation.js';
 import {Form, Grid, Select, Input, Checkbox, Button, Dropdown, Segment, Header} from 'semantic-ui-react';
-
-
-
-
+import {VALIDATE_USER} from '../events.js';
 
 class RegisterForm extends Component{
   constructor(props){
@@ -13,6 +10,7 @@ class RegisterForm extends Component{
     this.state = {
       firstname: '',
       lastname: '',
+      nickname: '',
       email: '',
       password: '',
       confpassword: '',
@@ -31,6 +29,15 @@ class RegisterForm extends Component{
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+setUser =({user, isUser}) => {
+  console.log(user, isUser);
+  if(isUser){
+    this.setError("user name taken!")
+  }
+  else{
+    this.props.setUser(user)
+  }
+}
 
 changeCountry(e){
   this.setState({country: e.target.value});
@@ -40,7 +47,6 @@ toggle(e){
   this.setState({terms: !this.state.terms});
 }
      change(event){
-
          this.setState({gender: event.target.value});
      }
 
@@ -56,6 +62,10 @@ toggle(e){
     }
   }
 
+  setError = (error) =>{
+    this.setState({error})
+  }
+
   isValid() {
     const { errors, isValid } = validateInput(this.state);
 
@@ -66,16 +76,41 @@ toggle(e){
     return isValid;
   }
 
-  onSubmit(e){
+  onSubmit=(e)=>{
+
     this.setState({errors: {}});
     console.log(this.state);
     e.preventDefault();
-    if (this.isValid()) {
-      axios.post('http://localhost:3000/home', {userdata : this.state}).then(
-        () => {},
-        ({data}) =>this.setState({errors: data})
-      );
-    }
+
+    let data = JSON.stringify(this.state )
+
+    var headers = {
+         'Content-Type': 'application/json'
+     }
+     axios.post('http://127.0.0.1:5000/Adduser', data, headers)
+
+         .then((response) => {
+
+         })
+         .catch((error) => {
+
+         })
+    axios({
+        method: 'post',
+        url: 'http://127.0.0.1:5000/Adduser',
+        data: this.state,
+        config: { headers: {'Content-Type': 'application/json' }}
+      }).then(function (response) {
+        //handle success
+        console.log(response);
+    })
+    .catch(function (response) {
+        //handle error
+        console.log(response);
+    });
+
+
+
   }
 
 
@@ -107,7 +142,7 @@ toggle(e){
           Sign-Up With Us!
           </Header>
 
-        <Segment stacked>
+        <Segment basic>
           <Form.Input
             control = {Input}
             placeholder='First name'
@@ -129,6 +164,7 @@ toggle(e){
             name = "lastname"
             error = {errors.lastname}
           />
+
 
           <Form.Input
             type = "email"

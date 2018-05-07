@@ -40,7 +40,7 @@ class loginform extends Component{
               Log-in to your account
             </Header>
             <Form size='large' onSubmit = {this.onSubmit}>
-              <Segment stacked>
+              <Segment raised>
                 <Form.Input
                   fluid
                   icon='mail'
@@ -63,11 +63,11 @@ class loginform extends Component{
                 />
 
                 <Button color='teal' fluid size='large'>Login</Button>
-              </Segment>
+              </Segment >
             </Form>
-            <Message>
+            <Segment basic>
               Do not have a Account? <a href='/register'>Sign Up</a>
-            </Message>
+            </Segment>
           </Grid.Column>
         </Grid>
     </div>

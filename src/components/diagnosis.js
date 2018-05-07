@@ -3,13 +3,43 @@ import {Grid, Segment, Container, Header, Divider} from 'semantic-ui-react';
 import {Widget, addResponseMessage, showCloseButton } from 'react-chat-widget';
 import {Launcher,Message} from 'react-chat-window';
 import messageHistory from './messageHistory';
+import io from 'socket.io-client';
+import {USER_CONNECTED, LOGOUT} from '../events.js';
+
+const socketURL="http://127.0.0.1:1357"
 export default class diagnose extends Component{
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      socket: null,
+      user: null,
       messageList: messageHistory
     };
+  }
+
+  componentWillMount(){
+    this.initSocket()
+  }
+
+  initSocket = () => {
+    const socket = io({socketURL})
+    socket.on('connect', () =>{
+      console.log("connected");
+    })
+    this.setState({socket})
+  }
+
+  setUser = (user) => {
+    const {socket} = this.state
+    socket.emit(USER_CONNECTED, user);
+    this.setState({user})
+  }
+
+  logout = () => {
+    const {socket} = this.state
+    socket.emit(LOGOUT)
+    this.setState({user:null})
   }
 
   _onMessageWasSent(message) {

@@ -4,14 +4,15 @@ import isEmpty from 'lodash/isEmpty';
 export default function validateInput(data) {
   let errors = {};
   errors.firstname="";
-    errors.lastname="";
-    errors.firstname="";
-      errors.email="";
-      errors.password="";
-        errors.confpassword="";
-        errors.age="";
-          errors.gender="";
-          errors.country="";
+  errors.lastname="";
+  errors.firstname="";
+  errors.email="";
+  errors.password="";
+  errors.confpassword="";
+  errors.age="";
+  errors.gender="";
+  errors.country="";
+  errors.nickname="";
   console.log(data);
   if (Validator.isEmpty(data.firstname)) {
     errors.firstname = 'This field is required';
@@ -44,6 +45,7 @@ export default function validateInput(data) {
   if (Validator.isEmpty(data.country)) {
     errors.country = 'This field is required';
   }
+
 
   return {
     errors,

@@ -7,12 +7,28 @@ import { Button, Container, Icon, Menu, Responsive, Segment, Sidebar, Visibility
 from 'semantic-ui-react';
 
 
-class DesktopContainer extends Component {
+class DesktopContainer extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.state = {isLoggedIn: false};
+  }
+
   state = {
     open1:false,
     open2:false,
     activeItem:''
   };
+
+  handleLoginClick() {
+    this.setState({isLoggedIn: true});
+  }
+
+  handleLogoutClick() {
+    this.setState({isLoggedIn: false});
+  }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
@@ -47,6 +63,13 @@ onCloseModal = (i) => {
   showFixedMenu = () => this.setState({ fixed: true })
 
   render() {
+    const isLoggedIn = this.state.isLoggedIn;
+    let button = null;
+    if (isLoggedIn) {
+      button = <LogoutButton onClick={this.handleLogoutClick} />;
+    } else {
+      button = <LoginButton onClick={this.handleLoginClick} />;
+    }
     const { activeItem } = this.state;
     const {open1} = this.state;
     const {open2} = this.state;
@@ -88,25 +111,12 @@ onCloseModal = (i) => {
                   onClick={this.handleItemClick}>
                     <Link to="/contact" className = "headeritem">Contact</Link>
                 </Menu.Item>
-
+                <div style={{marginLeft: '435px'}}>
                 <Menu.Item position='right'>
-                  <Button as='a' inverted={!fixed} color='teal' style={{ marginLeft: '0.5em' }} onClick={() => this.onOpenModal(1)}>Login</Button>
-                  <Modal size = {'tiny'} open={open1} onClose={() => this.onCloseModal(1)} closeIcon = {true} >
-                  <div>
-                  <br/><br/>
-                  <LoginForm />
-                  <br/>
-                  </div>
-                  </Modal>
-                  <Button as='a' inverted={!fixed} color = 'teal'  style={{ marginLeft: '0.5em' }} onClick={() => this.onOpenModal(2)}>Sign Up</Button>
-                  <Modal size = {'tiny'} open={open2} onClose={() => this.onCloseModal(2)}  >
-                  <div>
-                  <br/><br/>
-                  <RegisterForm />
-                  <br/>
-                  </div>
-                  </Modal>
-                  </Menu.Item>
+
+                {button}
+                </Menu.Item>
+                </div>
               </Container>
             </Menu>
           </Segment>
@@ -117,6 +127,34 @@ onCloseModal = (i) => {
   }
 }
 
+function Greeting(props) {
+  const isLoggedIn = props.isLoggedIn;
+  if (isLoggedIn) {
+    return <LogoutButton />;
+  }
+  return <LoginButton />;
+}
+
+function LoginButton(props) {
+  return (
+    <div>
+    <Button onClick={props.onClick}>
+      LOGIN
+    </Button>
+    <Button onClick={props.onClick}>
+      SIGNUP
+    </Button>
+    </div>
+  );
+}
+
+function LogoutButton(props) {
+  return (
+    <Button style={{marginLeft:'0px', height: '40px'}} onClick={props.onClick}>
+      LOGOUT
+    </Button>
+  );
+}
 DesktopContainer.propTypes = {
   children: PropTypes.node,
 }
