@@ -1,11 +1,49 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import landingImage from '../Assets/images/homebackground2.jpeg';
-import {Image, Grid, Segment, Container, Header, List, Form, Input, TextArea, Button} from 'semantic-ui-react';
-
+import {Image, Grid, Segment, Container, Header, List, Form, Input, TextArea, Button, Modal} from 'semantic-ui-react';
+import Registerpop from './registerpop.js';
+import {Link} from 'react-router-dom';
 class Home extends Component{
 
+  constructor(props) {
+    super(props);
+    this.state = {isLoggedIn: false};
+  }
+  state = {
+    open1:false,
+    open2:false
+  };
+
+  onOpenModal(i) {
+    if(i===1){
+  this.setState({open1:true})  ;
+  }
+  else {
+    this.setState({open2:true}) ;
+  }
+};
+
+onCloseModal = (i) => {
+  if(i===1){
+  this.setState({open1:false})  ;
+  }
+  else {
+  this.setState({open2:false}) ;
+  }
+  };
+
   render(){
+    const {open1} = this.state;
+    const {open2} = this.state;
+    const { fixed } = this.state
+    const isLoggedIn = this.state.isLoggedIn;
+    let button = null;
+    if (isLoggedIn) {
+      button = <LogoutButton onClick={this.handleLogoutClick} />;
+    } else {
+      button = <Link to='/layout'/>;
+    }
     return(
       <Grid>
         <div className="customContainer">
@@ -26,6 +64,7 @@ class Home extends Component{
                     marginTop:'0'
                   }}
                 />
+                <Segment basic>
                 <Header
                   as='h2'
                   inverted
@@ -36,12 +75,13 @@ class Home extends Component{
                     marginTop:'5em',
                   }}
                 />
+                </Segment>
               </Container>
             </Segment>
           </div>
           <Segment basic>
             <Header as ='h2'
-              content='Let Me Identify Whats Wrong!'
+              content='Let Me Identify What is Wrong!'
               textAlign='center'
               style={{
                 fontSize: '2.5em',
@@ -68,7 +108,7 @@ class Home extends Component{
                 marginTop: '3em',
                 marginLeft:'510px'
               }}>
-              <Button size='large' content='Fever' basic style={{marginRight: '1em'}}/>
+              <Button size='large' content='Fever' basic style={{marginRight: '1em'}} />
               <Button size='large' content='Cough' basic style={{marginRight: '1em'}}/>
               <Button size='large' content='Running Nose' basic style={{marginRight: '1em'}}/>
               <Button size='large' content='Nausea' basic style={{marginRight: '1em'}}/>
@@ -104,10 +144,7 @@ class Home extends Component{
                       <List.Item as='a'>How To Access</List.Item>
                     </List>
                   </Grid.Column>
-                  <Grid.Column width={7}>
-                    <Header as='h4' inverted>Footer Header</Header>
-                    <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
-                  </Grid.Column>
+                  
                 </Grid.Row>
               </Grid>
             </Container>
@@ -116,5 +153,25 @@ class Home extends Component{
       </Grid>
     )
   }
+}
+function LoginButton(props) {
+  return (
+    <div>
+    <Button onClick={props.onClick}>
+      LOGIN
+    </Button>
+    <Button onClick={props.onClick}>
+      SIGNUP
+    </Button>
+    </div>
+  );
+}
+
+function LogoutButton(props) {
+  return (
+    <Button onClick={props.onClick}>
+      LOGOUT
+    </Button>
+  );
 }
 export default Home

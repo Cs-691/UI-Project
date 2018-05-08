@@ -15,7 +15,7 @@ class contact extends React.Component{
       <Grid>
         <div className="contactContainer">
           <div className="contactBackgd">
-            <Container text>
+            <Container text>  
               <div className="contactheading">
                 <p className="contacttext">Get In Touch</p>
               </div>

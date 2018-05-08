@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import './Assets/css/style.min.css';
 
 import './Assets/css/style.min.css';
-import Head from './components/header2.js';
+import Head from './components/header.js';
 import Loginpop from './components/loginpop.js';
 import Registerpop from './components/registerpop.js';
 import Login from './components/login.js';

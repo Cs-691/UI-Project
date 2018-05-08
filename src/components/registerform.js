@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import validateInput from './validation.js';
+import validateRegister from './validation.js';
 import {Form, Grid, Select, Input, Checkbox, Button, Dropdown, Segment, Header} from 'semantic-ui-react';
-import {VALIDATE_USER} from '../events.js';
+import {Link, HashRouter } from 'react-router-dom';
+import {push} from 'react-router-redux';
 
 class RegisterForm extends Component{
   constructor(props){
@@ -38,17 +39,19 @@ setUser =({user, isUser}) => {
     this.props.setUser(user)
   }
 }
+nextPath(path) {
+ this.history.push(path);
+}
 
 changeCountry(e){
   this.setState({country: e.target.value});
-
 }
 toggle(e){
   this.setState({terms: !this.state.terms});
 }
-     change(event){
-         this.setState({gender: event.target.value});
-     }
+change(event){
+    this.setState({gender: event.target.value});
+}
 
   onChange(e){
     if (e.target.name === 'terms') {
@@ -62,39 +65,29 @@ toggle(e){
     }
   }
 
+  valid(){
+    const { errors, isValid } = validateRegister(this.state);
+    if(!isValid){
+      this.setState({errors});
+    }
+    return isValid;
+  }
+
   setError = (error) =>{
     this.setState({error})
   }
 
-  isValid() {
-    const { errors, isValid } = validateInput(this.state);
-
-    if (!isValid) {
-      this.setState({ errors });
-    }
-
-    return isValid;
-  }
-
   onSubmit=(e)=>{
-
     this.setState({errors: {}});
     console.log(this.state);
-    e.preventDefault();
-
+    debugger;
     let data = JSON.stringify(this.state )
-
+    let p=this.valid()
+    if (p) {
     var headers = {
          'Content-Type': 'application/json'
      }
-     axios.post('http://127.0.0.1:5000/Adduser', data, headers)
-
-         .then((response) => {
-
-         })
-         .catch((error) => {
-
-         })
+     debugger;
     axios({
         method: 'post',
         url: 'http://127.0.0.1:5000/Adduser',
@@ -102,17 +95,23 @@ toggle(e){
         config: { headers: {'Content-Type': 'application/json' }}
       }).then(function (response) {
         //handle success
+        console.log(response.status);
         console.log(response);
+        if(response.status==200){
+        localStorage.setItem('user', response.data);
+        console.log(localStorage.getItem('user'));
+      }
+      else if (response.status==409) {
+        alert("User with given Email ID already exists");
+      }
+
     })
     .catch(function (response) {
         //handle error
         console.log(response);
     });
-
-
-
   }
-
+}
 
   render(){
     let country = [
@@ -223,7 +222,6 @@ toggle(e){
            <div>
                 <select id="lang1" onChange={this.changeCountry} value={this.state.value}>
                   {country.map(createItem)}
-
                 </select>
                 <p></p>
                 <p>{this.state.value}</p>
@@ -236,7 +234,6 @@ toggle(e){
             onChange = {this.onChange}
             name = "disabilities"
           />
-
           <Form.Input
             placeholder='Any previous medical conditions?'
             value = {this.state.conditions}
@@ -250,9 +247,7 @@ toggle(e){
             onClick = {this.toggle}
             label='I agree to the Terms and Conditions'
             /><br/><br/>
-
-
-          <Button color='teal' fluid size='large'>Signup</Button>
+          <Button color='teal' fluid size='large' ><Link to='/'>Signup </Link></Button>
         </Segment>
       </Form>
     </Grid.Column>

@@ -78,7 +78,7 @@ onCloseModal = (i) => {
     return (
       <Responsive {...Responsive.onlyComputer}>
         <Visibility once={false} onBottomPassed={this.showFixedMenu} onBottomPassedReverse={this.hideFixedMenu}>
-          <Segment inverted textAlign='center' style={{ height: 65, padding: '0.2em 1.5em' }} vertical>
+          <Segment inverted textAlign='center' style={{ height: 70, padding: '0.2em 1.5em' }} vertical>
             <Menu
               fixed={fixed ? 'top' : null}
               inverted={!fixed}
@@ -100,21 +100,27 @@ onCloseModal = (i) => {
                     <Link to="/about" className = "headeritem">About</Link>
                 </Menu.Item>
                 <Menu.Item as='a'
-                  active={activeItem === 'diagnosis'}
-                  name='diagnosis'
-                  onClick={this.handleItemClick}>
-                    <Link to="/diagnosis" className = "headeritem">Diagnosis</Link>
-                </Menu.Item>
-                <Menu.Item as='a'
                   active={activeItem === 'contact'}
                   name='contact'
                   onClick={this.handleItemClick}>
                     <Link to="/contact" className = "headeritem">Contact</Link>
                 </Menu.Item>
                 <div style={{marginLeft: '435px'}}>
-                <Menu.Item position='right'>
-
-                {button}
+                <Menu.Item position='right' style={{marginLeft:'50px'}}>
+                <Button as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }} onClick={() => this.onOpenModal(1)}>Login</Button>
+                  <Modal open={open1} onClose={() => this.onCloseModal(1)} >
+                  <div>
+                  <br/><br/>
+                  <LoginForm />
+                  </div>
+                  </Modal>
+                  <Button as='a' inverted={!fixed} primary={fixed} style={{ marginLeft: '0.5em' }} onClick={() => this.onOpenModal(2)}>Sign Up</Button>
+                  <Modal open={open2} onClose={() => this.onCloseModal(2)} >
+                  <div>
+                  <br/><br/>
+                  <RegisterForm />
+                  </div>
+                  </Modal>
                 </Menu.Item>
                 </div>
               </Container>

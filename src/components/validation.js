@@ -12,7 +12,6 @@ export default function validateInput(data) {
   errors.age="";
   errors.gender="";
   errors.country="";
-  errors.nickname="";
   console.log(data);
   if (Validator.isEmpty(data.firstname)) {
     errors.firstname = 'This field is required';
@@ -49,6 +48,6 @@ export default function validateInput(data) {
 
   return {
     errors,
-    isValid: isEmpty(errors)
+    isValid: isEmpty(errors.email)
   }
 }

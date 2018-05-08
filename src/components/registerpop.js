@@ -13,7 +13,7 @@ class loginModal extends React.Component{
               marginLeft: '200px',
               float:'left',
               height: '790px',
-              width: '450px',
+              width: '500px',
               marginTop:'10px'
             }}>
           </Segment>

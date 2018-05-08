@@ -16,20 +16,6 @@ class loginModal extends React.Component{
               width: '450px',
               marginTop:'10px'
             }}>
-            <Header as='h2' inverted content='Login To Your Account!' style={{
-              marginTop: '15px',
-              marginLeft:'20px'
-            }}/>
-            <Button basic inverted style={{
-              marginTop:'370px',
-              marginLeft: '180px',
-              width:'100px'
-            }}>Cancel</Button>
-            <Button basic inverted style={{
-              marginTop:'370px',
-              marginLeft: '20px',
-              width:'100px'
-            }}>Login</Button>
           </Segment>
           <Segment
             className="ui secondary popfrt"
@@ -41,12 +27,7 @@ class loginModal extends React.Component{
               marginTop:'90px',
               marginLeft:'-400px'
             }}>
-            <Form style={{
-              marginTop:'80px'
-            }}>
-              <Form.Field id='form-input-control-email' control={Input} label= 'Email Address' placeholder='joe@abc.com' /><br/>
-              <Form.Field id='form-input-control-password' type = "password" control={Input} label='Password' placeholder='******' />
-            </Form>
+            <LoginForm/>
           </Segment>
         </Container>
       </Grid>
